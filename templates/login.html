@@ -1,0 +1,32 @@
+{% extends 'layout.html' %}
+{% block content %}
+<form id="login-container" method="POST" action="" class="col s12 m8 l8 offset-l2 offset-m2 z-depth-3">
+    {{ form.hidden_tag() }}
+    <div class="row">
+
+        <div class="offset-s1 input-field col s5 ">
+            {{ form.username(class="validate") }}
+            {{ form.username.label(for="username") }}
+        </div>
+
+        <div class="row">
+            <div class="input-field col s5">
+                {{ form.password(class="validate") }}
+                {{ form.password.label(for="password") }}
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col s12 center-align">
+                {{ form.submit(id="entrar", class="btn waves-effect waves-light white-text") }}
+            </div>
+
+        </div>
+        <div class="row">
+            <div class="col s12 center-align">
+                <a id="cadastro" class="btn waves-effect waves-light" href="{{ url_for('cadastro') }}">Cadastrar</a>
+            </div>
+        </div>
+    </div>
+</form>
+{% endblock content %}
