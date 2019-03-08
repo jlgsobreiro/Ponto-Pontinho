@@ -27,9 +27,7 @@
                     {% for category, message in messages %}
                        <div class="col s1 green">
                            {{ message }}
-                           <script>
-                                M.toast({html: 'I am a toast!'})
-                           </script>
+                           <script>M.toast({html: 'I am a toast!'})</script>
                        </div>
                     {% endfor %}
                 {% endif %}
