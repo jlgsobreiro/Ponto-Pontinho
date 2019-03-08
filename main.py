@@ -11,7 +11,6 @@ dbPontinho = client_mongo.pontinho
 pontosCollection = dbPontinho['pontos']
 usuariosCollection = dbPontinho['usuarios']
 
-
 @app.route("/", methods=['GET', 'POST'])
 @app.route("/login", methods=['GET', 'POST'])
 def login():
@@ -58,6 +57,5 @@ def cadastro():
 @app.route("/ponto")
 def ponto():
     return render_template('ponto.html', title='Entrar')
-
 
 app.run()
