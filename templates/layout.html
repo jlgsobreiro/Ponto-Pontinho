@@ -25,10 +25,7 @@
             {% with messages = get_flashed_messages(with_categories=true)  %}
                 {% if messages %}
                     {% for category, message in messages %}
-                       <div class="col s1 green">
-                           {{ message }}
-                           <script>M.toast({html: 'I am a toast!'})</script>
-                       </div>
+                        <a id={{ message }}></a>
                     {% endfor %}
                 {% endif %}
             {% endwith %}

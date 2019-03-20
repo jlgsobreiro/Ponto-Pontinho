@@ -1,3 +1,9 @@
+function callToast () {
+    if (document.getElementById('errado')){
+        M.toast({html: 'I am a toast!'});
+    }
+}
+
 function checkTime(i) {
   if (i < 10) {
     i = "0" + i;

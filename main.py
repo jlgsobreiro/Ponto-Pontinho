@@ -1,4 +1,4 @@
-from flask import Flask, render_template, url_for, flash, redirect, request
+from flask import Flask, render_template, url_for, flash, redirect, request, session
 from forms import RegistrationForm, LoginForm
 from pymongo import MongoClient
 from werkzeug.security import generate_password_hash, check_password_hash
@@ -21,11 +21,12 @@ def login():
             user = usuariosCollection.find_one({"Usuario": usuario})
             if (check_password_hash(user["Senha"],form.password.data)):
                 print("redirecting")
+                session['username'] = form.username.data
                 return redirect(url_for('ponto'))
             else:
-                flash("<script>M.toast({html: 'I am a toast!'})</script>")
+                flash('errado')
         else:
-            flash("<script>M.toast({html: 'I am a toast!'})</script>")
+            flash('errado')
     return render_template('login.html', title='Entrar', form=form)
 
 
@@ -56,6 +57,6 @@ def cadastro():
 
 @app.route("/ponto")
 def ponto():
+    print(session)
     return render_template('ponto.html', title='Entrar')
-
 app.run()
