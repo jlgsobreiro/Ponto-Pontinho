@@ -49,7 +49,7 @@ def cadastro():
                                            'Senha': senha})
             print("redirecting")
             flash(f'Conta criada para {form.username.data}!')
-            return redirect(url_for('ponto'))
+            return redirect(url_for('login'))
         else:
             flash(f'Senha incorreta!')
     return render_template('cadastro.html', title='Cadastro', form=form)
@@ -59,4 +59,8 @@ def cadastro():
 def ponto():
     print(session)
     return render_template('ponto.html', title='Entrar')
+
+@app.route("/panel")
+def panel():
+    return render_template('panel.html',title='Painel')
 app.run()
