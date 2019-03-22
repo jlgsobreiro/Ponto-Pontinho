@@ -4,9 +4,34 @@ function callToast () {
     }
 }
 
-  $(document).ready(function(){
+function arrive (){
+
+    ($.getJSON('/session',function teste(data,err){
+        $.post('/arrive',{user : data })
+        console.log(data)
+    }))
+
+
+}
+
+function lunch_depart (){
+
+
+}
+
+function lunch_arrive (){
+
+
+}
+
+function depart (){
+
+
+}
+
+$(document).ready(function(){
     $('.sidenav').sidenav();
-  });
+});
 
 function checkTime(i) {
   if (i < 10) {
