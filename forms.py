@@ -23,4 +23,10 @@ class LoginForm(FlaskForm):
                            validators=[DataRequired(), Length(min=2, max=20)])
     password = PasswordField('Senha', validators=[DataRequired()])
     remember = BooleanField('Remember me')
-    submit = SubmitField('Entrar',)
+    submit = SubmitField('Entrar')
+
+
+class PontoForm(FlaskForm):
+    submit = SubmitField('Bater Ponto')
+
+

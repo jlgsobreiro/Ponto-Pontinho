@@ -1,7 +1,9 @@
+from datetime import datetime
+import python.mongo_login as Login
 from flask import Flask, render_template, url_for, flash, redirect, request, session
-from forms import RegistrationForm, LoginForm
+from forms import RegistrationForm, LoginForm, PontoForm
 from pymongo import MongoClient
-from werkzeug.security import generate_password_hash, check_password_hash
+
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = '3160b2ceb0907af541541fc865bbb1fa'
@@ -15,18 +17,16 @@ usuariosCollection = dbPontinho['usuarios']
 @app.route("/login", methods=['GET', 'POST'])
 def login():
     form = LoginForm()
-    if (request.method == "POST"):
-        usuario = form.username.data
-        if (usuariosCollection.find_one({"Usuario":usuario})):
-            user = usuariosCollection.find_one({"Usuario": usuario})
-            if (check_password_hash(user["Senha"],form.password.data)):
-                print("redirecting")
-                session['username'] = form.username.data
-                return redirect(url_for('ponto'))
-            else:
-                flash('errado')
+    if request.method == "POST":
+        password = form.password.data
+        username = form.username.data
+        if Login.acesso(password,username,usuariosCollection):
+            return redirect(url_for('panel'))
+            print('sucesso')
         else:
-            flash('errado')
+            print('falhou')
+            flash(f"Login ou senha errados")
+
     return render_template('login.html', title='Entrar', form=form)
 
 
@@ -39,28 +39,43 @@ def cadastro():
         nome = form.nome.data
         sobrenome = form.sobrenome.data
         email = form.email.data
-        senha = generate_password_hash(form.password.data)
+        senha = form.password.data
         senha_confirma = form.confirm_password.data
-        if check_password_hash(senha, senha_confirma):
-            usuariosCollection.insert_one({'Nome': nome,
-                                           'Sobrenome': sobrenome,
-                                           'Email': email,
-                                           'Usuario': usuario,
-                                           'Senha': senha})
-            print("redirecting")
-            flash(f'Conta criada para {form.username.data}!')
-            return redirect(url_for('login'))
+        if Login.verifica_senha(senha, senha_confirma):
+            if Login.insere_usuario(nome, sobrenome, email, usuario, senha, usuariosCollection):
+                flash(f'Nome de usuario já cadastrado')
+            else:
+                print("redirecting")
+                flash(f'Conta criada para {usuario}!')
+                return redirect(url_for('login'))
         else:
             flash(f'Senha incorreta!')
     return render_template('cadastro.html', title='Cadastro', form=form)
 
 
-@app.route("/ponto")
+@app.route("/ponto", methods=['GET', 'POST'])
 def ponto():
+    form = PontoForm()
+    print(datetime.now())
     print(session)
-    return render_template('ponto.html', title='Entrar')
+    if request.method == "POST":
+        print(datetime.now())
+        print(session)
+        return render_template('ponto.html', title='Ponto', form=form)
+    return render_template('ponto.html', title='Ponto', form=form)
 
 @app.route("/panel")
 def panel():
     return render_template('panel.html',title='Painel')
+
+@app.route("/consult")
+def consult():
+    return render_template('consult.html',title='Consulta')
+
+@app.route("/inventory")
+def inventory():
+    return render_template('inventory.html',title='Inventario')
+
+
 app.run()
+

@@ -20,8 +20,24 @@
 </head>
 <body>
 
-    {% block panel %}
-    {% endblock panel %}
+
+  <nav>
+    <div class="nav-wrapper ">
+      <a href="#!" class="brand-logo"><img id="logo" src="{{url_for('static', filename='prowaterLogo.png')}}" ></a>
+      <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+      <ul class="right hide-on-med-and-down">
+        <li><a href="{{ url_for('ponto') }}">Ponto</a></li>
+        <li><a href="{{ url_for('inventory') }}">Inventario</a></li>
+        <li><a href="{{ url_for('consult') }}">Consulta</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <ul class="sidenav" id="mobile-demo">
+        <li><a href="{{ url_for('ponto') }}">Ponto</a></li>
+        <li><a href="{{ url_for('inventory') }}">Inventario</a></li>
+        <li><a href="{{ url_for('consult') }}">Consulta</a></li>
+  </ul>
 
     <div class="container">
 		<div id="top" class="top-menu"></div>
