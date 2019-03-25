@@ -29,7 +29,16 @@
             {% with messages = get_flashed_messages(with_categories=true)  %}
                 {% if messages %}
                     {% for category, message in messages %}
+<<<<<<< HEAD
+<<<<<<< HEAD
+                            <a onclick="M.toast()" class="btn">{{ message }}</a>
+
+=======
                         <a id={{ message }}></a>
+>>>>>>> 1f4f45398ef1ecba7a392200cdb5d8e74a81be9b
+=======
+                        <a id={{ message }}></a>
+>>>>>>> d4d430355b0b5c6d5ccd2cfdccf8eaa5b6496823
                     {% endfor %}
                 {% endif %}
             {% endwith %}

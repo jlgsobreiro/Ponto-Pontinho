@@ -1,3 +1,10 @@
+<<<<<<< HEAD
+from werkzeug.security import generate_password_hash, check_password_hash
+def acesso(senha,usuario,usuariosCollection):
+    if usuariosCollection.find_one({"Usuario":usuario}):
+        user = usuariosCollection.find_one({"Usuario": usuario})
+        if check_password_hash(user["Senha"], senha):
+=======
 import datetime
 
 from werkzeug.security import generate_password_hash, check_password_hash
@@ -13,6 +20,7 @@ def access(password, user):
     if usersCollection.find_one({"Usuario": user}) is not None:
         user = usersCollection.find_one({"Usuario": user})
         if check_password_hash(user["Senha"], password):
+>>>>>>> d4d430355b0b5c6d5ccd2cfdccf8eaa5b6496823
             return True
         else:
             return False
@@ -20,12 +28,35 @@ def access(password, user):
         return False
 
 
+<<<<<<< HEAD
+def verifica_senha(senha, confirma_senha):
+    if senha == confirma_senha:
+=======
 def equals_password(password, confirm_password):
     if password == confirm_password:
+>>>>>>> d4d430355b0b5c6d5ccd2cfdccf8eaa5b6496823
         return True
     else:
         return False
 
+<<<<<<< HEAD
+def verifica_login(usuario, usuariosCollection):
+    if usuariosCollection.find_one({"Usuario": usuario}):
+        return False
+    else:
+        return True
+
+def insere_usuario(nome, sobrenome, email, usuario, senha, usuariosCollection):
+    if verifica_login:
+        return False
+    else:
+        usuariosCollection.insert_one({'Nome': nome,
+                                    'Sobrenome': sobrenome,
+                                    'Email': email,
+                                    'Usuario': usuario,
+                                    'Senha': generate_password_hash(senha)})
+        return True
+=======
 
 def verify_login(user):
     if usersCollection.find_one({"Usuario": user}) is not None:
@@ -55,3 +86,4 @@ def hit_ponto(user):
 
 def count_ponto(user):
     return pontosCollection.find({"Usuario": user}).count()
+>>>>>>> d4d430355b0b5c6d5ccd2cfdccf8eaa5b6496823
