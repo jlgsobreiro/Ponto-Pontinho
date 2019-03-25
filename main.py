@@ -94,4 +94,4 @@ def last_entry():
     return ''
 
 
-app.run()
+app.run(host='192.168.1.120')

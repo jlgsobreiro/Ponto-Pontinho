@@ -7,8 +7,20 @@
     <div class="s12 center-align">
         <div class="row">
             <h1 id="tempo-real" class="grey-text"></h1>
-            <a id="hit_ponto" onclick="call_ponto()" class="btn waves-effect waves-light">Bater ponto</a>
+            <a id="hit_ponto" href="#modal1"  class="btn waves-effect waves-light modal-trigger">Bater ponto</a>
         </div>
+
+        <div id="modal1" class="modal">
+            <div class="modal-content">
+              <h4>Modal Header</h4>
+              <p>A bunch of text</p>
+            </div>
+            <div class="modal-footer">
+                <a onclick="call_ponto()" class="modal-close waves-effect waves-green btn-flat">Bater Ponto</a>
+                <a href="#!" class="modal-close waves-effect waves-green btn-flat">Cancelar</a>
+            </div>
+        </div>
+
         <div class="row">
             <a id="arrive" class="btn-floating btn-large waves-effect waves-light "><i class="material-icons">arrow_downward</i></a>
             <a id="lunch_depart" class="btn-floating btn-large waves-effect waves-light"><i class="material-icons">restaurant</i></a>
