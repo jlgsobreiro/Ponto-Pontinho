@@ -26,7 +26,5 @@ class LoginForm(FlaskForm):
     submit = SubmitField('Entrar')
 
 
-class PontoForm(FlaskForm):
-    submit = SubmitField('Bater Ponto')
 
 

@@ -1,10 +1,3 @@
-<<<<<<< HEAD
-from werkzeug.security import generate_password_hash, check_password_hash
-def acesso(senha,usuario,usuariosCollection):
-    if usuariosCollection.find_one({"Usuario":usuario}):
-        user = usuariosCollection.find_one({"Usuario": usuario})
-        if check_password_hash(user["Senha"], senha):
-=======
 import datetime
 
 from werkzeug.security import generate_password_hash, check_password_hash
@@ -20,7 +13,6 @@ def access(password, user):
     if usersCollection.find_one({"Usuario": user}) is not None:
         user = usersCollection.find_one({"Usuario": user})
         if check_password_hash(user["Senha"], password):
->>>>>>> d4d430355b0b5c6d5ccd2cfdccf8eaa5b6496823
             return True
         else:
             return False
@@ -28,35 +20,12 @@ def access(password, user):
         return False
 
 
-<<<<<<< HEAD
-def verifica_senha(senha, confirma_senha):
-    if senha == confirma_senha:
-=======
 def equals_password(password, confirm_password):
     if password == confirm_password:
->>>>>>> d4d430355b0b5c6d5ccd2cfdccf8eaa5b6496823
         return True
     else:
         return False
 
-<<<<<<< HEAD
-def verifica_login(usuario, usuariosCollection):
-    if usuariosCollection.find_one({"Usuario": usuario}):
-        return False
-    else:
-        return True
-
-def insere_usuario(nome, sobrenome, email, usuario, senha, usuariosCollection):
-    if verifica_login:
-        return False
-    else:
-        usuariosCollection.insert_one({'Nome': nome,
-                                    'Sobrenome': sobrenome,
-                                    'Email': email,
-                                    'Usuario': usuario,
-                                    'Senha': generate_password_hash(senha)})
-        return True
-=======
 
 def verify_login(user):
     if usersCollection.find_one({"Usuario": user}) is not None:
@@ -77,13 +46,31 @@ def insert_user(name, last_name, email, user, password):
         return True
 
 
-def hit_ponto(user):
+def hit_ponto(user,tipo):
     user_id = usersCollection.find_one({"Usuario": user})['_id']
-
+    dia = datetime.datetime.now().day
+    mes = datetime.datetime.now().month
+    ano = datetime.datetime.now().year
+    hora = datetime.datetime.now().hour
+    minuto = datetime.datetime.now().minute
     pontosCollection.insert_one({"User_id": user_id,
-                                 "Horario": datetime.datetime.now()})
+                                "Dia": dia,
+                                "Mes": mes,
+                                "Ano": ano,
+                                "Hora": hora,
+                                "Minuto": minuto,
+                                "Tipo": tipo})
 
 
 def count_ponto(user):
     return pontosCollection.find({"Usuario": user}).count()
->>>>>>> d4d430355b0b5c6d5ccd2cfdccf8eaa5b6496823
+
+def last_ponto_type(user):
+    user_id = usersCollection.find_one({"Usuario": user})['_id']
+    i = 0
+    for registry in pontosCollection.find({"User_id":user_id}):
+        if(i == pontosCollection.count({"User_id":user_id})-1):
+            return registry["Tipo"]
+        i += 1
+
+    return ''
