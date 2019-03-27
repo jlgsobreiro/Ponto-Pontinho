@@ -30,6 +30,7 @@ def cadastro():
     print("acesso cadastro")
     form = RegistrationForm()
     if request.method == "POST":
+
         usuario = form.username.data
         nome = form.nome.data
         sobrenome = form.sobrenome.data
@@ -75,6 +76,7 @@ def inventory():
 
 @app.route("/session", methods=["GET", "POST"])
 def session_user():
+    print(session["user"])
     return jsonify(session["user"])
 
 
@@ -85,6 +87,7 @@ def arrive():
         Login.hit_ponto(request.form['user'],request.form['tipo'])
     return ''
 
+
 @app.route("/last_entry", methods=["GET", "POST"])
 def last_entry():
     if request.method == "POST":
@@ -94,4 +97,4 @@ def last_entry():
     return ''
 
 
-app.run(host='192.168.1.120')
+app.run()

@@ -3,7 +3,7 @@ import datetime
 from werkzeug.security import generate_password_hash, check_password_hash
 from pymongo import MongoClient
 
-client_mongodb = MongoClient('localhost', 27017)
+client_mongodb = MongoClient('localhost', 2000)
 dbPontinho = client_mongodb.pontinho
 pontosCollection = dbPontinho['pontos']
 usersCollection = dbPontinho['usuarios']

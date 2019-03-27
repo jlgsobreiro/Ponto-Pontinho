@@ -39,20 +39,25 @@
         <li><a href="{{ url_for('consult') }}">Consulta</a></li>
   </ul>
 
-    <div class="container">
-		<div id="top" class="top-menu"></div>
-        <div id="div-login" class="row ">
-            {% with messages = get_flashed_messages(with_categories=true)  %}
-                {% if messages %}
-                    {% for category, message in messages %}
-                        <a id={{ message }}></a>
-                    {% endfor %}
-                {% endif %}
-            {% endwith %}
+  <ul class="sidenav sidenav-collapsible leftside-navigation collapsible sidenav-fixed menu-shadow ps ps--active-y" style="transform: translateX(0px);">
+              <li>
+                  <div class="collapsible-header" tabindex="0"><i class="material-icons">filter_drama</i>First</div>
+                  <div class="collapsible-body"><span>Lorem ipsum dolor sit amet.</span></div>
+              </li>
+            <li>
+                <div class="collapsible-header" tabindex="0"><i class="material-icons">place</i>Second</div>
+                <div class="collapsible-body"><span>Lorem ipsum dolor sit amet.</span></div>
+            </li>
+            <li>
+                <div class="collapsible-header" tabindex="0"><i class="material-icons">whatshot</i>Third</div>
+                <div class="collapsible-body"><span>Lorem ipsum dolor sit amet.</span></div>
+            </li>
+          </ul>
+
+  <div class="container">
             {% block content %}
             {% endblock content %}
-        </div>
-    </div>
+  </div>
 
     <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
     <script type="text/javascript" src="{{ url_for('static', filename='materialize.min.js') }}"></script>
