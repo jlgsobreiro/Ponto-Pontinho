@@ -46,31 +46,52 @@ def insert_user(name, last_name, email, user, password):
         return True
 
 
-def hit_ponto(user,tipo):
+def hit_ponto(user, tipo):
     user_id = usersCollection.find_one({"Usuario": user})['_id']
     dia = datetime.datetime.now().day
     mes = datetime.datetime.now().month
     ano = datetime.datetime.now().year
     hora = datetime.datetime.now().hour
     minuto = datetime.datetime.now().minute
+    segundos = datetime.datetime.now().second
     pontosCollection.insert_one({"User_id": user_id,
-                                "Dia": dia,
-                                "Mes": mes,
-                                "Ano": ano,
-                                "Hora": hora,
-                                "Minuto": minuto,
-                                "Tipo": tipo})
+                                 "Dia": dia,
+                                 "Mes": mes,
+                                 "Ano": ano,
+                                 "Hora": hora,
+                                 "Minuto": minuto,
+                                 "Segundos": segundos,
+                                 "Tipo": tipo})
 
 
 def count_ponto(user):
     return pontosCollection.find({"Usuario": user}).count()
 
+
 def last_ponto_type(user):
     user_id = usersCollection.find_one({"Usuario": user})['_id']
     i = 0
-    for registry in pontosCollection.find({"User_id":user_id}):
-        if(i == pontosCollection.count({"User_id":user_id})-1):
+    for registry in pontosCollection.find({"User_id": user_id}):
+        if i == pontosCollection.count({"User_id": user_id}) - 1:
             return registry["Tipo"]
         i += 1
 
+    return ''
+
+
+def last_ponto_date(user, method):
+    user_id = usersCollection.find_one({"Usuario": user})['_id']
+    list_registry = []
+    i = 0
+    for registry in pontosCollection.find({"User_id": user_id, "Tipo": method}):
+        list_registry.insert(i, registry)
+        i += 1
+
+    if list_registry[-1] is not None:
+        return str(list_registry[-1]['Dia']) + "-" + \
+               str(list_registry[-1]['Mes']) + "-" + \
+               str(list_registry[-1]['Ano']) + " " + \
+               str(list_registry[-1]['Hora']) + ":" + \
+               str(list_registry[-1]['Minuto']) + ":" + \
+               str(list_registry[-1]['Segundos'])
     return ''

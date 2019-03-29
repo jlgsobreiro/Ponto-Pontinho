@@ -51,7 +51,6 @@ def cadastro():
 
 @app.route("/ponto", methods=['GET', 'POST'])
 def ponto():
-
     if request.method == "POST":
         print(datetime.now())
         print(session)
@@ -94,6 +93,14 @@ def last_entry():
         print(request.form['user'])
         print(Login.last_ponto_type(request.form['user']))
         return jsonify(Login.last_ponto_type(request.form['user']))
+    return ''
+
+
+@app.route("/last_ponto", methods=["GET", "POST"])
+def last_ponto():
+    if request.method == "POST":
+        print(Login.last_ponto_date(request.form['user'], request.form['last']))
+        return jsonify(Login.last_ponto_date(request.form['user'], request.form['last']))
     return ''
 
 

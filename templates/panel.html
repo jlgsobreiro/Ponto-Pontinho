@@ -1,6 +1,19 @@
 {% extends 'layout_panel.html' %}
 {% block content %}
 
-
+ <h1 class="center-align" id="welcome"></h1>
+<script>
+    $.getJSON('/session',function (data,err){
+        var d = new Date();
+        var n = d.getHours();
+        if(n>=12){
+            $("#welcome").html("Boa tarde "+data+"!")
+        } else if(n>=18){
+            $("#welcome").html("Boa noite "+data+"!")
+        } else {
+            $("#welcome").html("Bom dia "+data+"!")
+        }
+    })
+</script>
 
 {% endblock content %}

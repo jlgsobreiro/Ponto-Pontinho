@@ -1,8 +1,6 @@
 {% extends 'layout.html' %}
 {% block content %}
 
-
-
 <div id="div-ponto" class="row">
     <div class="s12 center-align">
         <div class="row">
@@ -12,8 +10,9 @@
 
         <div id="modal1" class="modal">
             <div class="modal-content">
-              <h4>Modal Header</h4>
-              <p>A bunch of text</p>
+                <h4>Deseja bater o ponto?</h4>
+                <p>Você está prestes a bater o ponto! </p>
+                <p>Deseja realmente fazer isso?</p>
             </div>
             <div class="modal-footer">
                 <a onclick="call_ponto()" class="modal-close waves-effect waves-green btn-flat">Bater Ponto</a>
@@ -22,16 +21,16 @@
         </div>
 
         <div class="row">
-            <a id="arrive" class="btn-floating btn-large waves-effect waves-light "><i class="material-icons">arrow_downward</i></a>
-            <a id="lunch_depart" class="btn-floating btn-large waves-effect waves-light"><i class="material-icons">restaurant</i></a>
-            <a id="lunch_arrive" class="btn-floating btn-large waves-effect waves-light"><i class="material-icons">restaurant</i></a>
-            <a id="depart" class="btn-floating btn-large waves-effect waves-light"><i class="material-icons">arrow_upward</i></a>
+            <a id="arrive" onclick="last_ponto_arrive()" class="btn-floating btn-large waves-effect waves-light "><i class="material-icons">arrow_downward</i></a>
+            <a id="lunch_depart" onclick="last_ponto_lunch_depart()" class="btn-floating btn-large waves-effect waves-light"><i class="material-icons">restaurant</i></a>
+            <a id="lunch_arrive" onclick="last_ponto_lunch_arrive()" class="btn-floating btn-large waves-effect waves-light"><i class="material-icons">restaurant</i></a>
+            <a id="depart" onclick="last_ponto_depart()" class="btn-floating btn-large waves-effect waves-light"><i class="material-icons">arrow_upward</i></a>
             <br>
             <label>Chegada:</label>
             <br>
-            <label>Hora</label>
+            <label id="last_time_registry">Hora</label>
         </div>
-        <a class="btn waves-effect waves-light">Voltar</a>
+        <a href="/panel" class="btn waves-effect waves-light">Voltar</a>
 
     </div>
 

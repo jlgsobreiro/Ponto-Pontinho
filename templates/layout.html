@@ -26,13 +26,6 @@
     <div class="container">
 		<div id="top" class="top-menu"></div>
         <div id="div-login" class="row ">
-            {% with messages = get_flashed_messages(with_categories=true)  %}
-                {% if messages %}
-                    {% for category, message in messages %}
-                        <a id={{ message }}></a>
-                    {% endfor %}
-                {% endif %}
-            {% endwith %}
             {% block content %}
             {% endblock content %}
         </div>

@@ -1,42 +1,26 @@
+var lista_de_tipo_de_ponto = ["Inicio do expediente","Saida para almoço","Volta do almoço","Fim do expediente"]
+
 function arrive (){
     ($.getJSON('/session',function teste(data,err){
-        $.post('/arrive',{user : data, tipo : "Inicio do expediente"})
+        $.post('/arrive',{user : data, tipo : lista_de_tipo_de_ponto[0]})
     }))
 }
 
 function lunch_depart (){
     ($.getJSON('/session',function teste(data,err){
-        $.post('/arrive',{user : data, tipo : "Saida para almoço"})
+        $.post('/arrive',{user : data, tipo : lista_de_tipo_de_ponto[1]})
     }))
 }
 
 function lunch_arrive (){
     ($.getJSON('/session',function teste(data,err){
-        $.post('/arrive',{user : data, tipo : "Volta do almoço"})
+        $.post('/arrive',{user : data, tipo : lista_de_tipo_de_ponto[2]})
     }))
 }
 
 function depart (){
     ($.getJSON('/session',function teste(data,err){
-        $.post('/arrive',{user : data, tipo : "Fim do expediente"})
-    }))
-}
-
-function arriveBTN (){
-    ($.getJSON('/session',function teste(data,err){
-        $.post('/arrive',{user : data, tipo : "Inicio do expediente"})
-    }))
-}
-
-function lunch_departBTN (){
-    ($.getJSON('/session',function teste(data,err){
-        $.post('/arrive',{user : data, tipo : "Saida para almoço"})
-    }))
-}
-
-function lunch_arriveBTN (){
-    ($.getJSON('/session',function teste(data,err){
-        $.post('/arrive',{user : data, tipo : "Volta do almoço"})
+        $.post('/arrive',{user : data, tipo : lista_de_tipo_de_ponto[3]})
     }))
 }
 
@@ -48,25 +32,25 @@ function set_buttons (){
             var grey_disable = button + " grey disable show"
             var green = button + " green show"
             var hide = button + " disable hide"
-            if (last_entry == "Fim do expediente"){
+            if (last_entry == lista_de_tipo_de_ponto[3]){
                 document.getElementById("arrive").className = (yellow_disable)
                 document.getElementById("lunch_depart").className = (grey_disable)
                 document.getElementById("lunch_arrive").className = (grey_disable)
                 document.getElementById("depart").className = (grey_disable)
             }
-            else if (last_entry == "Volta do almoço"){
+            else if (last_entry == lista_de_tipo_de_ponto[2]){
                 document.getElementById("arrive").className = (green)
                 document.getElementById("lunch_depart").className = (green)
                 document.getElementById("lunch_arrive").className = (green)
                 document.getElementById("depart").className = (yellow_disable)
             }
-            else if (last_entry == "Saida para almoço"){
+            else if (last_entry == lista_de_tipo_de_ponto[1]){
                document.getElementById("arrive").className = (green)
                 document.getElementById("lunch_depart").className = (green)
                 document.getElementById("lunch_arrive").className = (yellow_disable)
                 document.getElementById("depart").className = (grey_disable)
             }
-            else if (last_entry == "Inicio do expediente"){
+            else if (last_entry == lista_de_tipo_de_ponto[0]){
                document.getElementById("arrive").className = (green)
                 document.getElementById("lunch_depart").className = (yellow_disable)
                 document.getElementById("lunch_arrive").className = (grey_disable)
@@ -88,8 +72,36 @@ $(document).ready(function(){
     $('.collapsible').collapsible();
 });
 
-function callToast () {
+function last_ponto_arrive( ){
+    $.getJSON('/session',function (data,err){
+        $.post('/last_ponto',{last : lista_de_tipo_de_ponto[0],user : data}, function ( response ){
+            $("#last_time_registry").html(response)
+        })
+    })
+}
 
+function last_ponto_lunch_depart( ){
+    $.getJSON('/session',function (data,err){
+        $.post('/last_ponto',{last : lista_de_tipo_de_ponto[1],user : data}, function ( response ){
+            $("#last_time_registry").html(response)
+        })
+    })
+}
+
+function last_ponto_lunch_arrive( ){
+    $.getJSON('/session',function (data,err){
+        $.post('/last_ponto',{last : lista_de_tipo_de_ponto[2],user : data}, function ( response ){
+            $("#last_time_registry").html(response)
+        })
+    })
+}
+
+function last_ponto_depart( ){
+    $.getJSON('/session',function (data,err){
+        $.post('/last_ponto',{last : lista_de_tipo_de_ponto[3],user : data}, function ( response ){
+            $("#last_time_registry").html(response)
+        })
+    })
 }
 
 function call_ponto(){
@@ -106,6 +118,10 @@ function call_ponto(){
         depart()
     }
     set_buttons()
+}
+
+function load_ponto(){
+    $("#container").load("/ponto")
 }
 
 function checkTime(i) {
