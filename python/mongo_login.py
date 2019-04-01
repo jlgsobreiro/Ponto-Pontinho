@@ -95,3 +95,17 @@ def last_ponto_date(user, method):
                str(list_registry[-1]['Minuto']) + ":" + \
                str(list_registry[-1]['Segundos'])
     return ''
+
+
+def get_pontos(user):
+    user_id = usersCollection.find_one({"Usuario": user})['_id']
+    list_registry = []
+    i = 0
+    for registry in pontosCollection.find({"User_id": user_id}):
+        list_registry.insert(i, registry)
+        i += 1
+
+    if list_registry is not None:
+        return list_registry
+
+    return ''

@@ -123,6 +123,15 @@ function call_ponto(){
 function load_ponto(){
     $("#container").load("/ponto")
 }
+function load_users(){
+    $("#container").load("/users")
+}
+
+function make_line(){
+
+    $("#thead").innerHTML("<tr>"++"</tr>")
+
+}
 
 function checkTime(i) {
   if (i < 10) {

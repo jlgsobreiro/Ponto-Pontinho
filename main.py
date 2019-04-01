@@ -104,4 +104,12 @@ def last_ponto():
     return ''
 
 
+@app.route("/show_pontos", methods=["GET", "POST"])
+def show_ponto():
+    if request.method == "POST":
+        print(Login.get_pontos(request.form['users']))
+        return jsonify(Login.get_pontos(request.form['users']))
+    return ''
+
+
 app.run()
