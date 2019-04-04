@@ -129,7 +129,7 @@ function load_users(){
 
 function make_line(){
 
-    $("#thead").innerHTML("<tr>"++"</tr>")
+    $("#thead").innerHTML("<tr>"+""+"</tr>")
 
 }
 

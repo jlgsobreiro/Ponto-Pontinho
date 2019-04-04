@@ -104,12 +104,20 @@ def last_ponto():
     return ''
 
 
-@app.route("/show_pontos", methods=["GET", "POST"])
-def show_ponto():
+@app.route("/get_ponto_at", methods=["GET", "POST"])
+def get_ponto_at():
     if request.method == "POST":
-        print(Login.get_pontos(request.form['users']))
-        return jsonify(Login.get_pontos(request.form['users']))
+        for item in Login.get_pontos(request.form['users']):
+            print(item)
+            return jsonify(item)
     return ''
+
+
+@app.route("/get_ponto_count", methods=["GET","POST"])
+def get_ponto_count():
+    if request.method == "POST":
+        return Login.count_ponto(request.form["user"])
+    return 0
 
 
 app.run()
