@@ -5,20 +5,20 @@
     <div class="row">
         <div class="row"></div>
         <div class="offset-s1 input-field col s5 ">
-            {{ form.username(class="validate") }}
-            {{ form.username.label(for="username") }}
+            <input id="username" type="text" class="validate">
+            <label for="username">Email</label>
         </div>
 
         <div class="row">
             <div class="input-field col s5">
-                {{ form.password(class="validate") }}
-                {{ form.password.label(for="password") }}
+                <input id="password" type="password" class="validate">
+                <label for="password">Password</label>
             </div>
         </div>
 
         <div class="row">
             <div class="col s12 center-align">
-                {{ form.submit(id="entrar", class="btn waves-effect waves-light white-text") }}
+                <a class="waves-effect waves-light btn">Entrar</a>
             </div>
 
         </div>

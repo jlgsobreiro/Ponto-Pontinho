@@ -1,38 +1,59 @@
-{% extends 'layout.html' %}
-{% block content %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title id="titulo">Ponto</title>
 
-<div id="div-ponto" class="row">
-    <div class="s12 center-align">
-        <div class="row">
-            <h1 id="tempo-real" class="grey-text"></h1>
-            <a id="hit_ponto" href="#modal1"  class="btn waves-effect waves-light modal-trigger">Bater ponto</a>
-        </div>
+    <!--Import Google Icon Font-->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!--Import materialize.css-->
+    <link type="text/css" rel="stylesheet" href="../static/materialize.css"  media="screen,projection"/>
+    <link type="text/css" rel="stylesheet" href="../static/styles.css"  media="screen,projection"/>
+    <!--Let browser know website is optimized for mobile-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <script type="text/javascript" src="../static/jquery-3.3.1.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <div id="div-ponto" class="row">
+            <div class="s12 center-align">
+                <div class="row">
+                    <h1 id="tempo-real" class="grey-text"></h1>
+                    <a id="hit_ponto" href="#modal1"  class="btn waves-effect waves-light modal-trigger">Bater ponto</a>
+                </div>
 
-        <div id="modal1" class="modal">
-            <div class="modal-content">
-                <h4>Deseja bater o ponto?</h4>
-                <p>Você está prestes a bater o ponto! </p>
-                <p>Deseja realmente fazer isso?</p>
+                <div id="modal1" class="modal">
+                    <div class="modal-content">
+                        <h4>Deseja bater o ponto?</h4>
+                        <p>Você está prestes a bater o ponto! </p>
+                        <p>Deseja realmente fazer isso?</p>
+                    </div>
+                    <div class="modal-footer">
+                        <a onclick="call_ponto()" class="modal-close waves-effect waves-green btn-flat">Bater Ponto</a>
+                        <a href="#!" class="modal-close waves-effect waves-green btn-flat">Cancelar</a>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <a id="arrive" onclick="last_ponto_arrive()" class="btn-floating btn-large waves-effect waves-light "><i class="material-icons">arrow_downward</i></a>
+                    <a id="lunch_depart" onclick="last_ponto_lunch_depart()" class="btn-floating btn-large waves-effect waves-light"><i class="material-icons">restaurant</i></a>
+                    <a id="lunch_arrive" onclick="last_ponto_lunch_arrive()" class="btn-floating btn-large waves-effect waves-light"><i class="material-icons">restaurant</i></a>
+                    <a id="depart" onclick="last_ponto_depart()" class="btn-floating btn-large waves-effect waves-light"><i class="material-icons">arrow_upward</i></a>
+                    <br>
+                    <label>Chegada:</label>
+                    <br>
+                    <label id="last_time_registry">Hora</label>
+                </div>
+                <a href="/panel" class="btn waves-effect waves-light">Voltar</a>
+
             </div>
-            <div class="modal-footer">
-                <a onclick="call_ponto()" class="modal-close waves-effect waves-green btn-flat">Bater Ponto</a>
-                <a href="#!" class="modal-close waves-effect waves-green btn-flat">Cancelar</a>
-            </div>
+
         </div>
 
-        <div class="row">
-            <a id="arrive" onclick="last_ponto_arrive()" class="btn-floating btn-large waves-effect waves-light "><i class="material-icons">arrow_downward</i></a>
-            <a id="lunch_depart" onclick="last_ponto_lunch_depart()" class="btn-floating btn-large waves-effect waves-light"><i class="material-icons">restaurant</i></a>
-            <a id="lunch_arrive" onclick="last_ponto_lunch_arrive()" class="btn-floating btn-large waves-effect waves-light"><i class="material-icons">restaurant</i></a>
-            <a id="depart" onclick="last_ponto_depart()" class="btn-floating btn-large waves-effect waves-light"><i class="material-icons">arrow_upward</i></a>
-            <br>
-            <label>Chegada:</label>
-            <br>
-            <label id="last_time_registry">Hora</label>
-        </div>
-        <a href="/panel" class="btn waves-effect waves-light">Voltar</a>
+    <script type="text/javascript" src="../static/materialize.min.js"></script>
+    <script type="text/javascript" src="../static/scripts.js"></script>
+    <script type="text/javascript" src="../static/login.js"></script>
 
     </div>
-
-</div>
-{% endblock content %}
+</body>
+</html>

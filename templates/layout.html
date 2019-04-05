@@ -1,39 +1,58 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-
     <meta charset="UTF-8">
-    {% if title %}
-        <title>Ponto - {{ title }}</title>
-    {% else %}
-            <title>Ponto</title>
-    {% endif %}
+    <title id="titulo">Ponto</title>
 
     <!--Import Google Icon Font-->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <!--Import materialize.css-->
-    <link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='materialize.css') }}"  media="screen,projection"/>
-    <link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}"  media="screen,projection"/>
+    <link type="text/css" rel="stylesheet" href="../static/materialize.css"  media="screen,projection"/>
+    <link type="text/css" rel="stylesheet" href="../static/styles.css"  media="screen,projection"/>
     <!--Let browser know website is optimized for mobile-->
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <script type="text/javascript" src="{{ url_for('static', filename='jquery-3.3.1.min.js') }}"></script>
+    <script type="text/javascript" src="../static/jquery-3.3.1.min.js"></script>
 </head>
 <body>
-
-    {% block panel %}
-    {% endblock panel %}
 
     <div class="container">
 		<div id="top" class="top-menu"></div>
         <div id="div-login" class="row ">
-            {% block content %}
-            {% endblock content %}
+            <form id="login-container" method="POST" action="" class="col s12 m8 l8 offset-l2 offset-m2 z-depth-3">
+
+            <div class="row">
+                <div class="row"></div>
+                <div class="offset-s1 input-field col s5 ">
+                    <input id="username" type="text" class="validate">
+                    <label for="username">Email</label>
+                </div>
+
+                <div class="row">
+                    <div class="input-field col s5">
+                        <input id="password" type="password" class="validate">
+                        <label for="password">Password</label>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col s12 center-align">
+                        <a onclick="access();" class="waves-effect waves-light btn">Entrar</a>
+                    </div>
+
+                </div>
+                <div class="row">
+                    <div class="col s12 center-align">
+                        <a id="cadastro" class="btn waves-effect waves-light" href="/cadastro">Cadastrar</a>
+                    </div>
+                </div>
+            </div>
+        </form>
         </div>
     </div>
 
-    <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-    <script type="text/javascript" src="{{ url_for('static', filename='materialize.min.js') }}"></script>
-    <script type="text/javascript" src="{{ url_for('static', filename='scripts.js') }}"></script>
+    <script type="text/javascript" src="../static/materialize.min.js"></script>
+    <script type="text/javascript" src="../static/scripts.js"></script>
+    <script type="text/javascript" src="../static/login.js"></script>
 
 </body>
 </html>

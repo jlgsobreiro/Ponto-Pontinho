@@ -8,21 +8,22 @@ app.config['SECRET_KEY'] = '3160b2ceb0907af541541fc865bbb1fa'
 
 
 @app.route("/", methods=['GET', 'POST'])
+def index():
+    return render_template('layout.html')
+
+
 @app.route("/login", methods=['GET', 'POST'])
 def login():
-    form = LoginForm()
     if request.method == "POST":
-        password = form.password.data
-        username = form.username.data
-        if Login.access(password, username):
-            print('sucesso')
-            session["user"] = username
-            return redirect(url_for('panel'))
-        else:
-            print('falhou')
-            flash(f"Login ou senha errados")
+        user = request.form['user']
+        passw = request.form['password']
 
-    return render_template('login.html', title='Entrar', form=form)
+        if Login.access(passw, user):
+            session["user"] = user
+            return jsonify({"Access": "Granted"})
+        else:
+            return jsonify({"Access": "Denied"})
+    return ''
 
 
 @app.route("/cadastro", methods=['GET', 'POST'])
