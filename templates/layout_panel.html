@@ -15,26 +15,18 @@
 </head>
 <body>
 
-  <nav class="nav-extended">
+  <nav>
     <div class="nav-wrapper ">
       <a href="#!" class="brand-logo"><img id="logo" src="../static/prowaterLogo.png" ></a>
       <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
       <ul class="right hide-on-med-and-down">
           <li><a onclick="load_ponto()">Ponto</a></li>
-          <li><a href="/prodution">Produção</a></li>
-          <li><a href="/expedition">Expedição</a></li>
-          <li><a href="/routes">Rotas</a></li>
-          <li><a href="/employees">Funcionarios</a></li>
-          <li><a href="/clients">Clientes</a></li>
+          <li><a onclick="load_production()">Produção</a></li>
+          <li><a onclick="load_expedition()">Expedição</a></li>
+          <li><a onclick="load_routes()">Rotas</a></li>
+          <li><a onclick="load_employees()">Funcionarios</a></li>
+          <li><a onclick="load_clients()">Clientes</a></li>
       </ul>
-    </div>
-      <div class="nav-content">
-       <ul class="tabs tabs-transparent">
-        <li class="tab"><a href="#test1">Test 1</a></li>
-        <li class="tab"><a class="active" href="#test2">Test 2</a></li>
-        <li class="tab disabled"><a href="#test3">Disabled Tab</a></li>
-        <li class="tab"><a href="#test4">Test 4</a></li>
-       </ul>
     </div>
   </nav>
 
@@ -48,12 +40,30 @@
   </ul>
 
   <div id="container">
-            {% block content %}
-            {% endblock content %}
+
+ <h1 class="center-align" id="welcome"></h1>
+
+
+
   </div>
+
+  <script>
+        $.getJSON('/session',function (data,err){
+            var d = new Date();
+            var n = d.getHours();
+            if(n>=12){
+                $("#welcome").html("Boa tarde "+data+"!")
+            } else if(n>=18){
+                $("#welcome").html("Boa noite "+data+"!")
+            } else {
+                $("#welcome").html("Bom dia "+data+"!")
+            }
+        })
+    </script>
 
     <script type="text/javascript" src="../static/materialize.min.js"></script>
     <script type="text/javascript" src="../static/scripts.js"></script>
+    <script type="text/javascript" src="../static/panel.js"></script>
 
 </body>
 </html>

@@ -55,23 +55,68 @@ def ponto():
     if request.method == "POST":
         print(datetime.now())
         print(session)
-        return render_template('ponto.html', title='Ponto')
-    return render_template('ponto.html', title='Ponto')
+        return render_template('ponto.html')
+    return render_template('ponto.html')
+
+
+@app.route("/production", methods=['GET', 'POST'])
+def production():
+    if request.method == "POST":
+        print(datetime.now())
+        print(session)
+        return render_template('production.html')
+    return render_template('production.html')
+
+
+@app.route("/expedition", methods=['GET', 'POST'])
+def expedition():
+    if request.method == "POST":
+        print(datetime.now())
+        print(session)
+        return render_template('expedition.html')
+    return render_template('espedition.html')
+
+
+@app.route("/routes", methods=['GET', 'POST'])
+def routes():
+    if request.method == "POST":
+        print(datetime.now())
+        print(session)
+        return render_template('routes.html')
+    return render_template('routes.html')
+
+
+@app.route("/emplyees", methods=['GET', 'POST'])
+def employees():
+    if request.method == "POST":
+        print(datetime.now())
+        print(session)
+        return render_template('employees.html')
+    return render_template('employees.html')
+
+
+@app.route("/clients", methods=['GET', 'POST'])
+def clients():
+    if request.method == "POST":
+        print(datetime.now())
+        print(session)
+        return render_template('clients.html')
+    return render_template('clients.html')
 
 
 @app.route("/panel")
 def panel():
-    return render_template('panel.html', title='Painel')
+    return render_template('layout_panel.html')
 
 
 @app.route("/consult")
 def consult():
-    return render_template('consult.html', title='Consulta')
+    return render_template('consult.html')
 
 
 @app.route("/inventory")
 def inventory():
-    return render_template('inventory.html', title='Inventario')
+    return render_template('inventory.html')
 
 
 @app.route("/session", methods=["GET", "POST"])
@@ -84,7 +129,7 @@ def session_user():
 def arrive():
     if request.method == "POST":
         print(request.form['user'])
-        Login.hit_ponto(request.form['user'],request.form['tipo'])
+        Login.hit_ponto(request.form['user'], request.form['tipo'])
     return ''
 
 
@@ -114,10 +159,17 @@ def get_ponto_at():
     return ''
 
 
-@app.route("/get_ponto_count", methods=["GET","POST"])
+@app.route("/get_ponto_count", methods=["GET", "POST"])
 def get_ponto_count():
     if request.method == "POST":
-        return Login.count_ponto(request.form["user"])
+        return jsonify(Login.count_ponto(request.form["user"]))
+    return 0
+
+
+@app.route("/get_all_pontos", methods=["GET", "POST"])
+def get_all_pontos():
+    if request.method == "POST":
+        return jsonify(Login.get_pontos(request.form["user"])[0])
     return 0
 
 
