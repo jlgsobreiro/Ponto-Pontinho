@@ -19,7 +19,7 @@
         <div class="col l1 grey center-align full_height">
             <div class="row"></div>
             <div class="row">
-                <a class="waves-effect waves-light btn">button</a>
+                <a onclick="show_some()" class="waves-effect waves-light btn">listar</a>
             </div>
             <div class="row">
                 <a class="waves-effect waves-light btn">button</a>
@@ -40,15 +40,12 @@
 
         <div class="col l11">
             <table>
-            <thead id="thead">
-              <tr>
-                  <th>Name</th>
-                  <th>Item Name</th>
-                  <th>Item Price</th>
+            <thead>
+              <tr id="head">
               </tr>
             </thead>
 
-            <tbody id="tbody">
+            <tbody>
 
             </tbody>
           </table>
@@ -58,6 +55,7 @@
 
     <script type="text/javascript" src="../static/materialize.min.js"></script>
     <script type="text/javascript" src="../static/scripts.js"></script>
+    <script type="text/javascript" src="../static/clients.js"></script>
 
 </body>
 </html>

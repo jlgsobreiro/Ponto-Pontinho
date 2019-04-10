@@ -2,6 +2,8 @@ import datetime
 
 from werkzeug.security import generate_password_hash, check_password_hash
 from pymongo import MongoClient
+from bson import Binary, Code
+from bson.json_util import dumps
 
 client_mongodb = MongoClient('localhost', 2000)
 dbPontinho = client_mongodb.pontinho
@@ -109,7 +111,7 @@ def get_pontos(user):
         i += 1
 
     if list_registry is not None:
-        return list_registry
+        return dumps(list_registry)
 
     return ''
 
@@ -118,8 +120,8 @@ def get_ponto_at(user, index):
     user_id = usersCollection.find_one({"Usuario": user})['_id']
     i = 0
     for registry in pontosCollection.find({"User_id": user_id}):
-        if i == index-1:
-            return registry
+        if i == int(index)-1:
+            return dumps(registry)
     return ''
 
 

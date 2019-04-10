@@ -1,7 +1,7 @@
 from datetime import datetime
 import python.mongo_login as Login
 from flask import Flask, render_template, url_for, flash, redirect, request, session, jsonify
-from forms import RegistrationForm, LoginForm
+from forms import RegistrationForm
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = '3160b2ceb0907af541541fc865bbb1fa'
@@ -16,9 +16,9 @@ def index():
 def login():
     if request.method == "POST":
         user = request.form['user']
-        passw = request.form['password']
+        password = request.form['password']
 
-        if Login.access(passw, user):
+        if Login.access(password, user):
             session["user"] = user
             return jsonify({"Access": "Granted"})
         else:
@@ -129,48 +129,43 @@ def session_user():
 def arrive():
     if request.method == "POST":
         print(request.form['user'])
-        Login.hit_ponto(request.form['user'], request.form['tipo'])
+        Login.hit_ponto(session["user"], request.form['tipo'])
     return ''
 
 
 @app.route("/last_entry", methods=["GET", "POST"])
 def last_entry():
     if request.method == "POST":
-        print(request.form['user'])
-        print(Login.last_ponto_type(request.form['user']))
-        return jsonify(Login.last_ponto_type(request.form['user']))
+        print(session["user"])
+        print(Login.last_ponto_type(session["user"]))
+        return jsonify(Login.last_ponto_type(session["user"]))
     return ''
 
 
 @app.route("/last_ponto", methods=["GET", "POST"])
 def last_ponto():
     if request.method == "POST":
-        print(Login.last_ponto_date(request.form['user'], request.form['last']))
-        return jsonify(Login.last_ponto_date(request.form['user'], request.form['last']))
+        print(Login.last_ponto_date(session["user"], request.form['last']))
+        return jsonify(Login.last_ponto_date(session["user"], request.form['last']))
     return ''
 
 
 @app.route("/get_ponto_at", methods=["GET", "POST"])
 def get_ponto_at():
     if request.method == "POST":
-        for item in Login.get_pontos(request.form['users']):
-            print(item)
-            return jsonify(item)
+        item = Login.get_ponto_at(session["user"],request.form["index"])
+        return item
     return ''
 
 
 @app.route("/get_ponto_count", methods=["GET", "POST"])
 def get_ponto_count():
-    if request.method == "POST":
-        return jsonify(Login.count_ponto(request.form["user"]))
-    return 0
+    return jsonify(Login.count_ponto(session["user"]))
 
 
 @app.route("/get_all_pontos", methods=["GET", "POST"])
 def get_all_pontos():
-    if request.method == "POST":
-        return jsonify(Login.get_pontos(request.form["user"])[0])
-    return 0
+    return Login.get_pontos(session["user"])
 
 
 app.run()

@@ -22,8 +22,14 @@ function load_employees(){
     $("#container").load("/employees")
 }
 
-function make_line(){
-
-    $("#thead").innerHTML("<tr>"+""+"</tr>")
-
-}
+$.getJSON('/session',function (data,err){
+            var d = new Date();
+            var n = d.getHours();
+            if(n>=12){
+                $("#welcome").html("Boa tarde "+data+"!")
+            } else if(n>=18){
+                $("#welcome").html("Boa noite "+data+"!")
+            } else {
+                $("#welcome").html("Bom dia "+data+"!")
+            }
+        })

@@ -47,20 +47,6 @@
 
   </div>
 
-  <script>
-        $.getJSON('/session',function (data,err){
-            var d = new Date();
-            var n = d.getHours();
-            if(n>=12){
-                $("#welcome").html("Boa tarde "+data+"!")
-            } else if(n>=18){
-                $("#welcome").html("Boa noite "+data+"!")
-            } else {
-                $("#welcome").html("Bom dia "+data+"!")
-            }
-        })
-    </script>
-
     <script type="text/javascript" src="../static/materialize.min.js"></script>
     <script type="text/javascript" src="../static/scripts.js"></script>
     <script type="text/javascript" src="../static/panel.js"></script>
