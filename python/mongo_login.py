@@ -50,7 +50,6 @@ def insert_user(name, last_name, email, user, password):
 
 def hit_ponto(user, tipo):
     user_id = usersCollection.find_one({"Usuario": user})['_id']
-    nome = usersCollection.find_one({"Usuario": user})['Nome']
     dia = datetime.datetime.now().day
     mes = datetime.datetime.now().month
     ano = datetime.datetime.now().year
@@ -58,7 +57,6 @@ def hit_ponto(user, tipo):
     minuto = datetime.datetime.now().minute
     segundos = datetime.datetime.now().second
     pontosCollection.insert_one({"User_id": user_id,
-                                 "Nome": nome,
                                  "Dia": dia,
                                  "Mes": mes,
                                  "Ano": ano,
@@ -120,8 +118,9 @@ def get_ponto_at(user, index):
     user_id = usersCollection.find_one({"Usuario": user})['_id']
     i = 0
     for registry in pontosCollection.find({"User_id": user_id}):
-        if i == int(index)-1:
+        if i == int(index):
             return dumps(registry)
+        i+=1
     return ''
 
 

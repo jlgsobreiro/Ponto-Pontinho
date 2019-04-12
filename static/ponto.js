@@ -7,36 +7,36 @@ function last_ponto_arrive( ){
 }
 
 function last_ponto_lunch_depart( ){
-    $.post('/last_ponto',{last : lista_de_tipo_de_ponto[1],user : data}, function ( response ){
+    $.post('/last_ponto',{last : lista_de_tipo_de_ponto[1]}, function ( response ){
         $("#last_time_registry").html(response)
     })
 }
 
 function last_ponto_lunch_arrive( ){
-    $.post('/last_ponto',{last : lista_de_tipo_de_ponto[2],user : data}, function ( response ){
+    $.post('/last_ponto',{last : lista_de_tipo_de_ponto[2]}, function ( response ){
         $("#last_time_registry").html(response)
     })
 }
 
 function last_ponto_depart( ){
-    $.post('/last_ponto',{last : lista_de_tipo_de_ponto[3],user : data}, function ( response ){
+    $.post('/last_ponto',{last : lista_de_tipo_de_ponto[3]}, function ( response ){
         $("#last_time_registry").html(response)
     })
 }
 function arrive (){
-    $.post('/arrive',{user : data, tipo : lista_de_tipo_de_ponto[0]})
+    $.post('/arrive',{tipo : lista_de_tipo_de_ponto[0]})
 }
 
 function lunch_depart (){
-    $.post('/arrive',{user : data, tipo : lista_de_tipo_de_ponto[1]})
+    $.post('/arrive',{tipo : lista_de_tipo_de_ponto[1]})
 }
 
 function lunch_arrive (){
-    $.post('/arrive',{user : data, tipo : lista_de_tipo_de_ponto[2]})
+    $.post('/arrive',{tipo : lista_de_tipo_de_ponto[2]})
 }
 
 function depart (){
-    $.post('/arrive',{user : data, tipo : lista_de_tipo_de_ponto[3]})
+    $.post('/arrive',{tipo : lista_de_tipo_de_ponto[3]})
 }
 
 function set_buttons (){

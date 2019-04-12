@@ -128,7 +128,6 @@ def session_user():
 @app.route("/arrive", methods=["GET", "POST"])
 def arrive():
     if request.method == "POST":
-        print(request.form['user'])
         Login.hit_ponto(session["user"], request.form['tipo'])
     return ''
 
@@ -136,8 +135,6 @@ def arrive():
 @app.route("/last_entry", methods=["GET", "POST"])
 def last_entry():
     if request.method == "POST":
-        print(session["user"])
-        print(Login.last_ponto_type(session["user"]))
         return jsonify(Login.last_ponto_type(session["user"]))
     return ''
 
@@ -152,8 +149,9 @@ def last_ponto():
 
 @app.route("/get_ponto_at", methods=["GET", "POST"])
 def get_ponto_at():
-    if request.method == "POST":
-        item = Login.get_ponto_at(session["user"],request.form["index"])
+    if request.method == "POST" or "GET":
+        index = request.args.get("index")
+        item = Login.get_ponto_at(session["user"], index)
         return item
     return ''
 
