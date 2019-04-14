@@ -5,7 +5,6 @@ from pymongo import MongoClient
 from bson import Binary, Code
 from bson.json_util import dumps
 
-client_mongodb = MongoClient('localhost', 2000)
 dbPontinho = client_mongodb.pontinho
 pontosCollection = dbPontinho['pontos']
 usersCollection = dbPontinho['usuarios']
@@ -127,3 +126,8 @@ def get_ponto_at(user, index):
 def get_ponto_count (user):
     count = usersCollection.count({"Usuario": user})
     return count
+
+
+def get_user_name(user):
+    print(user)
+    return usersCollection.find_one({"Usuario": user})["Nome"]

@@ -166,4 +166,11 @@ def get_all_pontos():
     return Login.get_pontos(session["user"])
 
 
+@app.route("/get_user_name", methods=["GET", "POST"])
+def get_user_name():
+    return Login.get_user_name(session["user"])
+
+
+
+
 app.run()

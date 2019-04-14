@@ -1,3 +1,4 @@
+
 function make_col (item){
     return ("<td>"+item+"</td>")
 }
@@ -22,23 +23,45 @@ function get_ponto_count() {
     return $.getJSON("/get_ponto_count")
 }
 
-function vai() {
-    var pontos_count = get_ponto_count();
+function get_user_name(user_id) {
+    return $.getJSON("/get_user_name")
+}
+
+var pontos_count;
+var ponto = null;
+var nome;
+$(document).ready(function(){
+    $.ajaxSetup({
+        async: false
+    });
+   pontos_count = parseInt(get_ponto_count().responseJSON);
+   ponto = get_all_pontos();
+   nome = get_user_name();
+   $.ajaxSetup({
+        async: true
+    });
     make_title("Funcionario");
     make_title("Data");
     make_title("Registro");
-    var temp;
-    for(var i = 0 ; i > pontos_count ; i--){
-        temp = get_ponto_at(i);
-        var hora = temp.json["Hora"];
-        var minuto = temp.responseJSON["Minuto"];
-        var segundos = temp.responseJSON["Segundos"];
-        var dia = temp.responseJSON["Dia"];
-        var mes = temp.responseJSON["Mes"];
-        var ano = temp.responseJSON["Ano"];
-        conosle.log(dia)
-        make_row(make_col("teste")+
+     for(var i = 0 ; i < pontos_count ; i++){
+
+        var hora = ponto.responseJSON[i]["Hora"];
+        var minuto = ponto.responseJSON[i]["Minuto"];
+        var segundos = ponto.responseJSON[i]["Segundos"];
+        var dia = ponto.responseJSON[i]["Dia"];
+        var mes = ponto.responseJSON[i]["Mes"];
+        var ano = ponto.responseJSON[i]["Ano"];
+        make_row(make_col(nome.responseJSON)+
                         make_col(hora+":"+minuto+":"+segundos+" "+dia+"-"+mes+"-"+ano)+
-                        make_col(temp.responseJSON["Tipo"]))
+                        make_col(ponto.responseJSON[i]["Tipo"]))
     }
+
+});
+
+
+function vai() {
+    pontos_count = get_ponto_count();
+
+
+
 }
