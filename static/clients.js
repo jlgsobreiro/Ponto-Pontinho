@@ -1,13 +1,14 @@
-
+//Faz coluna
 function make_col (item){
     return ("<td>"+item+"</td>")
 }
-
+//Cria titulo da coluna
 function make_title (item){
     $("#head").append("<th>"+item+"</th>")
 }
-
+//Cria linha
 function make_row (item){
+
     return $("#tbody").append("<tr>"+item+"</tr>")
 }
 
@@ -23,7 +24,7 @@ function get_ponto_count() {
     return $.getJSON("/get_ponto_count")
 }
 
-function get_user_name(user_id) {
+function get_user_name() {
     return $.getJSON("/get_user_name")
 }
 
@@ -45,23 +46,14 @@ $(document).ready(function(){
     make_title("Registro");
      for(var i = 0 ; i < pontos_count ; i++){
 
-        var hora = ponto.responseJSON[i]["Hora"];
-        var minuto = ponto.responseJSON[i]["Minuto"];
-        var segundos = ponto.responseJSON[i]["Segundos"];
+        var hora = ponto.responseJSON[i]["Horario"];
+        var dia_semana = ponto.responseJSON[i]["Dia_semana"];
         var dia = ponto.responseJSON[i]["Dia"];
         var mes = ponto.responseJSON[i]["Mes"];
         var ano = ponto.responseJSON[i]["Ano"];
         make_row(make_col(nome.responseJSON)+
-                        make_col(hora+":"+minuto+":"+segundos+" "+dia+"-"+mes+"-"+ano)+
+                        make_col(dia_semana+" "+dia+"-"+mes+"-"+ano+" "+hora)+
                         make_col(ponto.responseJSON[i]["Tipo"]))
     }
 
 });
-
-
-function vai() {
-    pontos_count = get_ponto_count();
-
-
-
-}

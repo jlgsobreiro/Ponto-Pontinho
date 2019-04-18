@@ -5,9 +5,11 @@ from pymongo import MongoClient
 from bson import Binary, Code
 from bson.json_util import dumps
 
+client_mongodb = MongoClient('localhost', 2000)
 dbPontinho = client_mongodb.pontinho
 pontosCollection = dbPontinho['pontos']
 usersCollection = dbPontinho['usuarios']
+timeBankCollection = dbPontinho['banco_de_horas']
 
 
 def access(password, user):
@@ -43,25 +45,51 @@ def insert_user(name, last_name, email, user, password):
                                     'Sobrenome': last_name,
                                     'Email': email,
                                     'Usuario': user,
-                                    'Senha': generate_password_hash(password)})
+                                    'Senha': generate_password_hash(password),
+                                    "Data": datetime.datetime.now()})
         return True
+
+def month_ptbr(month):
+    months_ptbr = {"Jan": "Janeiro",
+                    "Feb": "Fevereiro",
+                    "Mar": "Março",
+                    "Apr": "Abril",
+                    "May": "Maio",
+                    "Jun": "Junho",
+                    "Jul": "Julho",
+                    "Aug": "Agosto",
+                    "Sep": "Setembro",
+                    "Oct": "Outubro",
+                    "Nov": "Novembro",
+                    "Dec": "Dezembro"}
+    return months_ptbr[month]
+
+
+def weekday_ptbr(day):
+    weekdays_ptbr = {"Sun": "Domingo",
+                    "Mon": "Segunda-feira",
+                    "Tue": "Terça-feira",
+                    "Wed": "Quarta-feira",
+                    "Thu": "Quinta-feira",
+                    "Fri": "Sexta-feira",
+                    "Sat": "Sabado"}
+    return weekdays_ptbr[day]
 
 
 def hit_ponto(user, tipo):
     user_id = usersCollection.find_one({"Usuario": user})['_id']
-    dia = datetime.datetime.now().day
-    mes = datetime.datetime.now().month
-    ano = datetime.datetime.now().year
-    hora = datetime.datetime.now().hour
-    minuto = datetime.datetime.now().minute
-    segundos = datetime.datetime.now().second
+    data = datetime.datetime.now().ctime()
+    dia_semana = data[0:3]
+    dia = data[8:10]
+    mes = data[4:7]
+    ano = data[20:24]
+    horario = data[11:19]
     pontosCollection.insert_one({"User_id": user_id,
+                                 "Dia_semana": weekday_ptbr(dia_semana),
                                  "Dia": dia,
-                                 "Mes": mes,
+                                 "Mes": month_ptbr(mes),
                                  "Ano": ano,
-                                 "Hora": hora,
-                                 "Minuto": minuto,
-                                 "Segundos": segundos,
+                                 "Horario": horario,
                                  "Tipo": tipo})
 
 
@@ -90,12 +118,11 @@ def last_ponto_date(user, method):
         i += 1
 
     if list_registry[-1] is not None:
-        return str(list_registry[-1]['Dia']) + "-" + \
-               str(list_registry[-1]['Mes']) + "-" + \
+        return str(list_registry[-1]['Dia_semana']) + " " + \
+               str(list_registry[-1]['Dia']) + "/" + \
+               str(list_registry[-1]['Mes']) + "/" + \
                str(list_registry[-1]['Ano']) + " " + \
-               str(list_registry[-1]['Hora']) + ":" + \
-               str(list_registry[-1]['Minuto']) + ":" + \
-               str(list_registry[-1]['Segundos'])
+               str(list_registry[-1]['Horario'])
     return ''
 
 
@@ -131,3 +158,5 @@ def get_ponto_count (user):
 def get_user_name(user):
     print(user)
     return usersCollection.find_one({"Usuario": user})["Nome"]
+
+
