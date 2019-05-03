@@ -119,6 +119,11 @@ def inventory():
     return render_template('inventory.html')
 
 
+@app.route("/historico_ponto")
+def historico_ponto():
+    return render_template('historico_ponto.html')
+
+
 @app.route("/session", methods=["GET", "POST"])
 def session_user():
     print(session["user"])
@@ -164,6 +169,14 @@ def get_ponto_count():
 @app.route("/get_all_pontos", methods=["GET", "POST"])
 def get_all_pontos():
     return Login.get_pontos(session["user"])
+
+
+@app.route("/get_all_pontos_user", methods=["GET", "POST"])
+def get_all_pontos():
+    if request.method == "POST" or "GET":
+        user = request.args.get("user")
+        return Login.get_pontos(user)
+    return ''
 
 
 @app.route("/get_user_name", methods=["GET", "POST"])

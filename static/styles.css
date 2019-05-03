@@ -5,8 +5,13 @@
 }
 
 .full_height {
-    height:available;
+    height: 100vh;
 }
+
+body{
+    overflow: hidden;
+}
+
 
 .zero{
 	
@@ -30,7 +35,7 @@
 
 tbody {
 display:block;
-max-height :78vh;
+max-height :82vh;
 overflow:auto;
 }
 

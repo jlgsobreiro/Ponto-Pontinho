@@ -32,6 +32,7 @@ var pontos_count;
 var ponto = null;
 var nome;
 $(document).ready(function(){
+    $('.fixed-action-btn').floatingActionButton();
     $.ajaxSetup({
         async: false
     });

@@ -160,3 +160,11 @@ def get_user_name(user):
     return usersCollection.find_one({"Usuario": user})["Nome"]
 
 
+def get_all_users_name():
+    list = []
+    i = 0
+    for x in usersCollection.find({}):
+        list.insert(i, x["Nome"])
+        i += 1
+
+    return list

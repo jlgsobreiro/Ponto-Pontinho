@@ -2,6 +2,9 @@
 function load_ponto(){
     $("#container").load("/ponto")
 }
+function load_historico_ponto(){
+    $("#container").load("/historico_ponto")
+}
 function load_clients(){
     $("#container").load("/clients")
 }
