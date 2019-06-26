@@ -172,7 +172,7 @@ def get_all_pontos():
 
 
 @app.route("/get_all_pontos_user", methods=["GET", "POST"])
-def get_all_pontos():
+def get_all_pontos_user():
     if request.method == "POST" or "GET":
         user = request.args.get("user")
         return Login.get_pontos(user)
@@ -182,8 +182,6 @@ def get_all_pontos():
 @app.route("/get_user_name", methods=["GET", "POST"])
 def get_user_name():
     return Login.get_user_name(session["user"])
-
-
 
 
 app.run()
