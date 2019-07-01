@@ -15,7 +15,7 @@ Qual o banco de dados utilizado?
   
 Qual o framework utilizado?
 
-    No inicio do desenvolvimento foi utilizado o Flask para Python e este esta sendo removido para poder utilizar o Nginx.
+    No inicio do desenvolvimento foi utilizado o Flask para Python e este esta sendo removido para poder utilizar o Django.
 
 
 Este sistema ainda esta no inicio do desenvolvimento.
