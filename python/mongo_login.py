@@ -38,7 +38,7 @@ def verify_login(user):
 
 
 def insert_user(name, last_name, email, user, password):
-    if verify_login(user) is True:
+    if verify_login(user):
         return False
     else:
         usersCollection.insert_one({'Nome': name,

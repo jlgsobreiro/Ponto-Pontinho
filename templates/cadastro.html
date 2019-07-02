@@ -1,54 +1,80 @@
-{% extends 'layout.html' %}
-{% block content %}
-	<div id="div-cadastrar" class="row">
-		<form class="col s12" method="POST">
-			{{ form.hidden_tag() }}
-			<div class="row">
-				<div class="input-field col s6">
-					{{ form.nome(class="validate") }}
-            		{{ form.nome.label(for="nome") }}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title id="titulo">Ponto</title>
 
+    <!--Import Google Icon Font-->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!--Import materialize.css-->
+    <link type="text/css" rel="stylesheet" href="../static/materialize.css"  media="screen,projection"/>
+    <link type="text/css" rel="stylesheet" href="../static/styles.css"  media="screen,projection"/>
+    <!--Let browser know website is optimized for mobile-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <script type="text/javascript" src="../static/jquery-3.3.1.min.js"></script>
+</head>
+<body>
+
+    <div class="container">
+		<div id="top" class="top-menu"></div>
+        <div id="div-login" class="row ">
+
+				<div id="div-cadastrar" class="row">
+					<form class="col s12" method="POST">
+						<div class="row">
+							<div class="input-field col s6">
+								<input id="nome" type="text" class="validate">
+								<label for="nome">Nome</label>
+
+							</div>
+							<div class="input-field col s6">
+								<input id="sobrenome" type="text" class="validate">
+								<label for="sobrenome">Sobrenome</label>
+
+							</div>
+							<div class="input-field col s6">
+								<input id="username" type="text" class="validate">
+								<label for="username">Usuário</label>
+
+							</div>
+
+							<div class="input-field col s6">
+								<input id="email" type="text" class="validate">
+								<label for="email">Email</label>
+
+							</div>
+
+							<div class="input-field col s6">
+								<input id="password" type="password" class="validate">
+									<label for="password">Senha</label>
+
+							</div>
+
+							<div class="input-field col s6">
+								<input id="comfirm_password" type="password" class="validate">
+									<label for="comfirm_password">Confirma senha</label>
+
+							</div>
+
+							<div class="row">
+								<div class="col s12 center-align">
+									<a onclick="register();" class="waves-effect waves-light btn">Entrar</a>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col s12 center-align">
+									<a id="voltar" class="btn waves-effect waves-light" href="/login">Voltar</a>
+								</div>
+							</div>
+						</div>
+					 </form>
 				</div>
-				<div class="input-field col s6">
-					{{ form.sobrenome(class="validate") }}
-            		{{ form.sobrenome.label(for="sobrenome") }}
+        </div>
+    </div>
 
-				</div>
-				<div class="input-field col s6">
-					{{ form.username(class="validate") }}
-            		{{ form.username.label(for="username") }}
+    <script type="text/javascript" src="../static/materialize.min.js"></script>
+    <script type="text/javascript" src="../static/scripts.js"></script>
+    <script type="text/javascript" src="../static/register.js"></script>
 
-				</div>
-
-				<div class="input-field col s6">
-					{{ form.email(class="validate") }}
-					{{ form.email.label(for="email") }}
-
-				</div>
-
-				<div class="input-field col s6">
-					{{ form.password(class="validate") }}
-					{{ form.password.label(for="password") }}
-
-				</div>
-
-				<div class="input-field col s6">
-					{{ form.confirm_password(class="validate") }}
-					{{ form.confirm_password.label(for="confirm_password") }}
-
-				</div>
-
-				<div class="row">
-					<div class="col s12 center-align">
-						{{ form.submit(id="entrar", class="btn waves-effect waves-light white-text") }}
-					</div>
-				</div>
-				<div class="row">
-					<div class="col s12 center-align">
-						<a id="voltar" class="btn waves-effect waves-light" href="{{ url_for('login') }}">Voltar</a>
-					</div>
-				</div>
-			</div>
-		</form>
-	</div>
-{% endblock content %}
+</body>
+</html>

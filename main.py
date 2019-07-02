@@ -29,25 +29,35 @@ def login():
 @app.route("/cadastro", methods=['GET', 'POST'])
 def cadastro():
     print("acesso cadastro")
-    form = RegistrationForm()
     if request.method == "POST":
 
-        usuario = form.username.data
-        nome = form.nome.data
-        sobrenome = form.sobrenome.data
-        email = form.email.data
-        senha = form.password.data
-        senha_confirma = form.confirm_password.data
-        if Login.equals_password(senha, senha_confirma):
-            if Login.insert_user(nome, sobrenome, email, usuario, senha):
-                flash(f'Nome de usuario já cadastrado')
-            else:
-                print("redirecting")
-                flash(f'Conta criada para {usuario}!')
-                return redirect(url_for('login'))
+        usuario = request.form['username']
+        nome = request.form['name']
+        sobrenome = request.form['last_name']
+        email = request.form['email']
+        senha = request.form['password']
+        senha_confirma = request.form['confirm_password']
+
+        if usuario is '':
+            return jsonify({"Register": "Username"})
+        if nome is '':
+            return jsonify({"Register": "Name"})
+        if sobrenome is '':
+            return jsonify({"Register": "Last_name"})
+        if senha is '':
+            return jsonify({"Register": "Password"})
+        if senha_confirma is '':
+            return jsonify({"Register": "Confirm_password"})
+        if email is '':
+            return jsonify({"Register": "Email"})
+
+        if not Login.equals_password(senha, senha_confirma):
+            return jsonify({"Register": "Password"})
+
+        if Login.insert_user(nome, sobrenome, email, usuario, senha):
+            return jsonify({"Register": "Exists"})
         else:
-            flash(f'Senha incorreta!')
-    return render_template('cadastro.html', title='Cadastro', form=form)
+            return jsonify({"Register": "Registered"})
 
 
 @app.route("/ponto", methods=['GET', 'POST'])
