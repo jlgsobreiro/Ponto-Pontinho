@@ -20,24 +20,46 @@ def login():
 
         if Login.access(password, user):
             session["user"] = user
+            print("Granted")
             return jsonify({"Access": "Granted"})
         else:
+            print("Denied")
             return jsonify({"Access": "Denied"})
     return ''
 
 
-@app.route("/cadastro", methods=['GET', 'POST'])
-def cadastro():
-    print("acesso cadastro")
+@app.route("/logoff", methods=['GET','POST'])
+def logoff():
     if request.method == "POST":
+        print("init")
+        if session:
+            print("saindo")
+            session.clear()
+            print("Logoff")
+            return jsonify({'Session': 'Cleared'})
+        else:
+            print("Nope")
+            return jsonify({"Session": "No session"})
 
+@app.route("/register", methods=['GET', 'POST'])
+def register():
+    print("cadastrando")
+    print(request.method)
+    if request.method == 'POST':
+        print("getting")
         usuario = request.form['username']
+        print(usuario)
         nome = request.form['name']
+        print(nome)
         sobrenome = request.form['last_name']
+        print(sobrenome)
         email = request.form['email']
+        print(email)
         senha = request.form['password']
+        print(senha)
         senha_confirma = request.form['confirm_password']
-
+        print(senha_confirma)
+        print('got')
         if usuario is '':
             return jsonify({"Register": "Username"})
         if nome is '':
@@ -58,6 +80,13 @@ def cadastro():
             return jsonify({"Register": "Exists"})
         else:
             return jsonify({"Register": "Registered"})
+    else:
+        return ''
+
+
+@app.route("/cadastro", methods=['GET', 'POST'])
+def cadastro():
+    return render_template('cadastro.html')
 
 
 @app.route("/ponto", methods=['GET', 'POST'])
@@ -136,9 +165,11 @@ def historico_ponto():
 
 @app.route("/session", methods=["GET", "POST"])
 def session_user():
-    print(session["user"])
-    return jsonify(session["user"])
-
+    if session:
+        print(session["user"])
+        return jsonify(session["user"])
+    else:
+        return 'Off'
 
 @app.route("/arrive", methods=["GET", "POST"])
 def arrive():
