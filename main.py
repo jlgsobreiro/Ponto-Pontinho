@@ -1,7 +1,6 @@
 from datetime import datetime
 import python.mongo_login as Login
-from flask import Flask, render_template, url_for, flash, redirect, request, session, jsonify
-from forms import RegistrationForm
+from flask import Flask, render_template, request, session, jsonify
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = '3160b2ceb0907af541541fc865bbb1fa'
@@ -60,26 +59,26 @@ def register():
         senha_confirma = request.form['confirm_password']
         print(senha_confirma)
         print('got')
-        if usuario is '':
-            return jsonify({"Register": "Username"})
+
         if nome is '':
             return jsonify({"Register": "Name"})
         if sobrenome is '':
             return jsonify({"Register": "Last_name"})
+        if usuario is '':
+            return jsonify({"Register": "Username"})
+        if email is '':
+            return jsonify({"Register": "Email"})
         if senha is '':
             return jsonify({"Register": "Password"})
         if senha_confirma is '':
             return jsonify({"Register": "Confirm_password"})
-        if email is '':
-            return jsonify({"Register": "Email"})
-
         if not Login.equals_password(senha, senha_confirma):
-            return jsonify({"Register": "Password"})
+            return jsonify({"Register": "Not_equal"})
 
         if Login.insert_user(nome, sobrenome, email, usuario, senha):
-            return jsonify({"Register": "Exists"})
-        else:
             return jsonify({"Register": "Registered"})
+        else:
+            return jsonify({"Register": "Exists"})
     else:
         return ''
 
@@ -222,6 +221,21 @@ def get_all_pontos_user():
 
 @app.route("/get_user_name", methods=["GET", "POST"])
 def get_user_name():
+    return Login.get_user_name(session["user"])
+
+
+@app.route("/days_worked", methods=["GET", "POST"])
+def days_worked():
+    return Login.get_user_name(session["user"])
+
+
+@app.route("/hours_worked", methods=["GET", "POST"])
+def hours_worked():
+    return Login.get_user_name(session["user"])
+
+
+@app.route("/hours_lunch", methods=["GET", "POST"])
+def hours_lunch():
     return Login.get_user_name(session["user"])
 
 

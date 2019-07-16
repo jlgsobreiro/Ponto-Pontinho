@@ -1,4 +1,7 @@
-var lista_de_tipo_de_ponto = ["Inicio do expediente","Saida para almoço","Volta do almoço","Fim do expediente"]
+var lista_de_tipo_de_ponto = ["Inicio do expediente",
+                                "Saida para almoço",
+                                "Volta do almoço",
+                                "Fim do expediente"]
 
 function last_ponto_arrive( ){
     $.post('/last_ponto',{last : lista_de_tipo_de_ponto[0]}, function ( response ){
@@ -81,15 +84,19 @@ function set_buttons (){
 function call_ponto(){
     if ($("#arrive").hasClass('yellow')){
         arrive()
+        set_buttons();
     }
     else if ($("#lunch_depart").hasClass('yellow')){
         lunch_depart()
+        set_buttons();
     }
     else if ($("#lunch_arrive").hasClass('yellow')){
         lunch_arrive()
+        set_buttons();
     }
     else if ($("#depart").hasClass('yellow')){
         depart()
+        set_buttons();
     }
     set_buttons()
 }

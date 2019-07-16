@@ -2,7 +2,6 @@ import datetime
 
 from werkzeug.security import generate_password_hash, check_password_hash
 from pymongo import MongoClient
-from bson import Binary, Code
 from bson.json_util import dumps
 
 client_mongodb = MongoClient('localhost', 2000)
@@ -49,30 +48,31 @@ def insert_user(name, last_name, email, user, password):
                                     "Data": datetime.datetime.now()})
         return True
 
+
 def month_ptbr(month):
     months_ptbr = {"Jan": "Janeiro",
-                    "Feb": "Fevereiro",
-                    "Mar": "Março",
-                    "Apr": "Abril",
-                    "May": "Maio",
-                    "Jun": "Junho",
-                    "Jul": "Julho",
-                    "Aug": "Agosto",
-                    "Sep": "Setembro",
-                    "Oct": "Outubro",
-                    "Nov": "Novembro",
-                    "Dec": "Dezembro"}
+                   "Feb": "Fevereiro",
+                   "Mar": "Março",
+                   "Apr": "Abril",
+                   "May": "Maio",
+                   "Jun": "Junho",
+                   "Jul": "Julho",
+                   "Aug": "Agosto",
+                   "Sep": "Setembro",
+                   "Oct": "Outubro",
+                   "Nov": "Novembro",
+                   "Dec": "Dezembro"}
     return months_ptbr[month]
 
 
 def weekday_ptbr(day):
     weekdays_ptbr = {"Sun": "Domingo",
-                    "Mon": "Segunda-feira",
-                    "Tue": "Terça-feira",
-                    "Wed": "Quarta-feira",
-                    "Thu": "Quinta-feira",
-                    "Fri": "Sexta-feira",
-                    "Sat": "Sabado"}
+                     "Mon": "Segunda-feira",
+                     "Tue": "Terça-feira",
+                     "Wed": "Quarta-feira",
+                     "Thu": "Quinta-feira",
+                     "Fri": "Sexta-feira",
+                     "Sat": "Sabado"}
     return weekdays_ptbr[day]
 
 
@@ -90,7 +90,8 @@ def hit_ponto(user, tipo):
                                  "Mes": month_ptbr(mes),
                                  "Ano": ano,
                                  "Horario": horario,
-                                 "Tipo": tipo})
+                                 "Tipo": tipo,
+                                 "Ctime": datetime.datetime.now()})
 
 
 def count_ponto(user):
@@ -146,11 +147,11 @@ def get_ponto_at(user, index):
     for registry in pontosCollection.find({"User_id": user_id}):
         if i == int(index):
             return dumps(registry)
-        i+=1
+        i += 1
     return ''
 
 
-def get_ponto_count (user):
+def get_ponto_count(user):
     count = usersCollection.count({"Usuario": user})
     return count
 
@@ -168,3 +169,16 @@ def get_all_users_name():
         i += 1
 
     return list
+
+
+def worked_hours_of_day():
+    lista = []
+    dia = 0
+    for x in usersCollection.find({}):
+        for y in pontosCollection.find({"User_id": x["_id"]}):
+            if dia != y["Ctime"].day:
+                dia = y["Ctime"].day
+            else:
+                lista.append(y["Ctime"])
+        while len(lista)/2 > 0:
+            print(lista.pop(1) - lista.pop(0))
