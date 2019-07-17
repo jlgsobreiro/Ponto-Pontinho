@@ -171,14 +171,61 @@ def get_all_users_name():
     return list
 
 
-def worked_hours_of_day():
-    lista = []
-    dia = 0
-    for x in usersCollection.find({}):
-        for y in pontosCollection.find({"User_id": x["_id"]}):
-            if dia != y["Ctime"].day:
-                dia = y["Ctime"].day
-            else:
-                lista.append(y["Ctime"])
-        while len(lista)/2 > 0:
-            print(lista.pop(1) - lista.pop(0))
+def get_all_hours_worked(user):
+    user_id = usersCollection.find_one({"Usuario": user})['_id']
+    tempo1 = datetime.timedelta(0)
+    tempo_total = datetime.timedelta(0)
+    for registry in pontosCollection.find({"User_id": user_id}):
+        if registry["Tipo"] == "Saida para almoço" or registry["Tipo"] == "Fim do expediente":
+            tempo_total += registry["Ctime"] - tempo1
+        else:
+            tempo1 = registry["Ctime"]
+    return tempo_total
+
+
+def get_hours_worked_by_year(user, year):
+    user_id = usersCollection.find_one({"Usuario": user})['_id']
+    tempo1 = datetime.timedelta(0)
+    tempo_total = datetime.timedelta(0)
+    for registry in pontosCollection.find({"User_id": user_id, "Ano": str(year)}):
+        if registry["Tipo"] == "Saida para almoço" or registry["Tipo"] == "Fim do expediente":
+            tempo_total += registry["Ctime"] - tempo1
+        else:
+            tempo1 = registry["Ctime"]
+    return tempo_total
+
+
+def get_hours_worked_by_month(user, year, month):
+    user_id = usersCollection.find_one({"Usuario": user})['_id']
+    tempo1 = datetime.timedelta(0)
+    tempo_total = datetime.timedelta(0)
+    for registry in pontosCollection.find({"User_id": user_id, "Ano": str(year), "Mes": month}):
+        if registry["Tipo"] == "Saida para almoço" or registry["Tipo"] == "Fim do expediente":
+            tempo_total += registry["Ctime"] - tempo1
+        else:
+            tempo1 = registry["Ctime"]
+    return tempo_total
+
+
+def get_hours_worked_by_day(user, year, month, day):
+    user_id = usersCollection.find_one({"Usuario": user})['_id']
+    tempo1 = datetime.timedelta(0)
+    tempo_total = datetime.timedelta(0)
+    for registry in pontosCollection.find({"User_id": user_id, "Ano": str(year), "Mes": month, "Dia": str(day)}):
+        if registry["Tipo"] == "Saida para almoço" or registry["Tipo"] == "Fim do expediente":
+            tempo_total += registry["Ctime"] - tempo1
+        else:
+            tempo1 = registry["Ctime"]
+    return tempo_total
+
+
+def get_hours_worked_between(user, inital_date, final_date):
+    user_id = usersCollection.find_one({"Usuario": user})['_id']
+    tempo1 = datetime.timedelta(0)
+    tempo_total = datetime.timedelta(0)
+    for registry in pontosCollection.find({"User_id": user_id, "Ano": str(year), "Mes": month, "Dia": str(day)}):
+        if registry["Tipo"] == "Saida para almoço" or registry["Tipo"] == "Fim do expediente":
+            tempo_total += registry["Ctime"] - tempo1
+        else:
+            tempo1 = registry["Ctime"]
+    return tempo_total
